@@ -121,8 +121,6 @@ class AddNoteFragment : Fragment() {
                 bind(note)
             }
 
-            viewModel.viewNoteOnly()
-
             // Delete note
             binding.deleteButton.visibility = View.VISIBLE
             binding.deleteButton.setOnClickListener { showConfirmationDeleteDialog() }

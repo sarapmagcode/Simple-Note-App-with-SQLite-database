@@ -13,9 +13,6 @@ class NoteViewModel(private val noteDao: NoteDao) : ViewModel() {
 
     val allNotes: LiveData<List<Note>> = noteDao.getAllNotes().asLiveData()
 
-    private var _isNoteAdded: Boolean = false
-    val isNoteAdded: Boolean get() = _isNoteAdded
-
     /** Private class methods **/
     private fun insertNote(note: Note) {
         viewModelScope.launch { noteDao.insert(note) }
@@ -51,7 +48,6 @@ class NoteViewModel(private val noteDao: NoteDao) : ViewModel() {
     fun addNewNote(noteTitle: String, noteContent: String, noteTimestamp: String) {
         val newNote = createNewNote(noteTitle, noteContent, noteTimestamp)
         insertNote(newNote)
-        _isNoteAdded = true
     }
 
     fun isEntryValid(noteTitle: String, noteContent: String): Boolean {
@@ -72,10 +68,6 @@ class NoteViewModel(private val noteDao: NoteDao) : ViewModel() {
 
     fun deleteNote(note: Note) {
         viewModelScope.launch { noteDao.delete(note) }
-    }
-
-    fun viewNoteOnly() {
-        _isNoteAdded = false
     }
 }
 
